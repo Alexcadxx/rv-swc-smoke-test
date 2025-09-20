@@ -1,4 +1,4 @@
-# React + Vite + SWC Template
+# React + Vite + SWC + Husky + Vitest Template
 
 Starter template for building modern **React** apps with **Vite** and **SWC (JavaScript)**.  
 Includes Prettier + ESLint + EditorConfig preconfigured for a clean dev workflow.
@@ -23,11 +23,11 @@ If you are developing a production application, we recommend using TypeScript wi
 ##  Quick Start
 
 1. **Generate a new project** from this template:  
-   [Use this template](https://github.com/Alexcadxx/react-vite-swc-template/generate)  
+   [Use this template](https://github.com/Alexcadxx/rv-swc-smoke-test/generate)  
    or via CLI:
 
    ```bash
-   gh repo create my-new-app --template Alexcadxx/react-vite-swc-template --public
+   gh repo create my-new-app --template Alexcadxx/rv-swc-smoke-test --public
 
    ```
 
