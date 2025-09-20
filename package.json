@@ -1,5 +1,5 @@
 {
-	"name": "my-react-swc",
+	"name": "rv-swc-smoke-test",
 	"private": true,
 	"version": "0.0.0",
 	"type": "module",
@@ -7,11 +7,15 @@
 		"dev": "vite",
 		"build": "vite build",
 		"preview": "vite preview",
-		"lint": "eslint .",
-		"lint:fix": "eslint . --fix",
-		"format": "prettier --write .",
-		"format:check": "prettier --check .",
-		"prepare": "husky"
+		"lint": "eslint . --max-warnings=0",
+		"test": "vitest --run --passWithNoTests"
+	},
+	"lint-staged": {
+		"*.{js,jsx}": [
+			"eslint --fix",
+			"prettier --write"
+		],
+		"*.{json,md,css,scss}": "prettier --write"
 	},
 	"dependencies": {
 		"react": "^19.1.1",
@@ -33,15 +37,7 @@
 		"husky": "^9.1.7",
 		"lint-staged": "^16.1.6",
 		"prettier": "^3.6.2",
-		"vite": "^7.1.2"
-	},
-	"lint-staged": {
-		"*.{js,jsx}": [
-			"eslint --fix",
-			"prettier --write"
-		],
-		"*.{json,md,css,scss}": [
-			"prettier --write"
-		]
+		"vite": "^7.1.2",
+		"vitest": "^3.2.4"
 	}
 }

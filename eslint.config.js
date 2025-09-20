@@ -1,47 +1,53 @@
 // eslint.config.js
 import js from '@eslint/js';
-import globals from 'globals';
-import react from 'eslint-plugin-react';
-import reactHooks from 'eslint-plugin-react-hooks';
-import jsxA11y from 'eslint-plugin-jsx-a11y';
 import importPlugin from 'eslint-plugin-import';
+import jsxA11y from 'eslint-plugin-jsx-a11y';
+import reactPlugin from 'eslint-plugin-react';
+import reactHooks from 'eslint-plugin-react-hooks';
 
 export default [
-  { ignores: ['dist/**', 'node_modules/**', 'coverage/**'] },
-  {
-    files: ['**/*.{js,jsx}'],
-    languageOptions: {
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      ecmaFeatures: { jsx: true },
-      globals: { ...globals.browser, ...globals.es2021 },
-    },
-    plugins: {
-      react,
-      'react-hooks': reactHooks,
-      'jsx-a11y': jsxA11y,
-      import: importPlugin,
-    },
-    settings: { react: { version: 'detect' } },
-    rules: {
-      // base + react + hooks + a11y
-      ...js.configs.recommended.rules,
-      ...react.configs.recommended.rules,
-      ...reactHooks.configs.recommended.rules,
-      ...jsxA11y.configs.recommended.rules,
+	js.configs.recommended,
+	{
+		files: ['**/*.{js,jsx}'],
+		ignores: ['node_modules/**', 'dist/**'],
+		languageOptions: {
+			ecmaVersion: 'latest',
+			sourceType: 'module',
+			parserOptions: {
+				ecmaFeatures: { jsx: true }, // <-- moved here
+			},
+			globals: {
+				window: 'readonly',
+				document: 'readonly',
+				navigator: 'readonly',
+			},
+		},
+		plugins: {
+			react: reactPlugin,
+			'react-hooks': reactHooks,
+			'jsx-a11y': jsxA11y,
+			import: importPlugin,
+		},
+		settings: {
+			react: { version: 'detect' },
+		},
+		rules: {
+			// React 17+ / Vite: no need to import React in scope
+			'react/react-in-jsx-scope': 'off',
+			'react/jsx-uses-react': 'off',
 
-      // imports
-      'import/order': [
-        'error',
-        { 'newlines-between': 'always', alphabetize: { order: 'asc' } },
-      ],
+			// Hooks
+			'react-hooks/rules-of-hooks': 'error',
+			'react-hooks/exhaustive-deps': 'warn',
 
-      // modern react
-      'react/react-in-jsx-scope': 'off',
+			// A11y (tune as you like)
+			'jsx-a11y/anchor-is-valid': 'warn',
 
-      // leave formatting to Prettier
-      'arrow-body-style': 'off',
-      'prefer-arrow-callback': 'off',
-    },
-  },
+			// Import hygiene (optional but nice)
+			'import/order': [
+				'warn',
+				{ 'newlines-between': 'always', alphabetize: { order: 'asc', caseInsensitive: true } },
+			],
+		},
+	},
 ];
