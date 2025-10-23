@@ -1,4 +1,0 @@
-npm test
-npx --no-install lint-staged
-
-# npm test # (optional) add back later if you want tests on commit
